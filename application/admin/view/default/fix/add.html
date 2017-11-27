@@ -1,0 +1,50 @@
+{extend name="public/base" /}
+
+{block name="body"}
+<div class="main-title">
+    <h2>添加报修</h2>
+</div>
+<form action="{:url()}" method="post" class="form-horizontal">
+    <div class="form-item">
+        <label class="item-label">标题<span class="check-tips"></span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="title" value="">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">姓名<span class="check-tips">（请填写用户名）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="name" value="">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">电话<span class="check-tips">（请填写电话,方便维修人员联系）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="tel" value="">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">地址<span class="check-tips">（请填写地址,方便维修人员上门处理）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="address" value="">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">问题详情<span class="check-tips">（请填写地址,方便维修人员上门处理）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="content" value="">
+        </div>
+    </div>
+    <div class="form-item">
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+    //导航高亮
+    highlight_subnav('{:url('User/index')}');
+</script>
+{/block}
