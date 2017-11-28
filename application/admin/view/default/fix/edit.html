@@ -8,34 +8,35 @@
     <div class="form-item">
         <label class="item-label">标题<span class="check-tips"></span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="title" value="">
+            <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
         </div>
     </div>
     <div class="form-item">
         <label class="item-label">姓名<span class="check-tips">（请填写用户名）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="name" value="">
+            <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
         </div>
     </div>
     <div class="form-item">
         <label class="item-label">电话<span class="check-tips">（请填写电话,方便维修人员联系）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="tel" value="">
+            <input type="text" class="text input-large" name="tel" value="{$info.tel|default=''}">
         </div>
     </div>
     <div class="form-item">
         <label class="item-label">地址<span class="check-tips">（请填写地址,方便维修人员上门处理）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="address" value="">
+            <input type="text" class="text input-large" name="address" value="{$info.address|default=''}">
         </div>
     </div>
     <div class="form-item">
         <label class="item-label">问题详情<span class="check-tips">（请填写地址,方便维修人员上门处理）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="content" value="">
+            <input type="text" class="text input-large" name="content" value="{$info.content|default=''}">
         </div>
     </div>
     <div class="form-item">
+        <input type="hidden" name="id" value="{$info.id|default=''}">
         <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
         <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
     </div>
@@ -44,7 +45,10 @@
 
 {block name="script"}
 <script type="text/javascript">
+    Think.setValue("pid", {$info.pid|default = 0});
+    Think.setValue("hide", {$info.hide|default = 0});
+    Think.setValue("is_dev", {$info.is_dev|default = 0});
     //导航高亮
-    highlight_subnav('{:url('User/index')}');
+    highlight_subnav('{:url('index')}');
 </script>
 {/block}

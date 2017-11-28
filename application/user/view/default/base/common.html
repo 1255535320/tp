@@ -28,7 +28,7 @@
 	<!-- 导航条
 	================================================== -->
 	<div class="navbar navbar-inverse navbar-fixed-top">
-	    <div class="navbar-inner">
+	    <!--<div class="navbar-inner">-->
 	        <div class="container">
 	            <a class="brand" href="{:url('index/index')}">TwoThink</a>
 	            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -38,13 +38,11 @@
 	            </button>
 	            <div class="nav-collapse collapse">
 	                <ul class="nav"> 
-		                {think:nav name="nav"/} 
-		                    {eq name="nav.pid" value="0"}
+
 		                        <li>
 		                            <a href="{$nav.url|get_nav_url}" target="{eq name='nav.target' value='1'}_blank{else/}_self{/eq}">{$nav.title}</a>
 		                        </li>
-                        	{/eq}
-                    	{/think:nav} 
+
 	                </ul>
 	            </div>
 	            <div class="nav-collapse collapse pull-right">
@@ -64,7 +62,7 @@
 	                            <a href="{:url('User/login')}">登录</a>
 	                        </li>
 	                        <li>
-	                            <a href="{:url('User/register')}" style="padding-left:0;padding-right:0">注册</a>
+	                            <a href="{:url('login/register')}" style="padding-left:0;padding-right:0">注册</a>
 	                        </li>
 	                    </ul>
 	                {/if}

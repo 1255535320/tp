@@ -35,7 +35,7 @@ class Base extends Model {
      */
     public function detail($id) {
     	//查询表字段
-    	$fields = $this->getTableFields(array('name'=>$this->name));
+    	$fields = $this->getTableFields(null);
         if ($fields == false) {
             $data = array();
         } else {

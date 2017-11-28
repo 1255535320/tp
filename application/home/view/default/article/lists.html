@@ -1,40 +1,75 @@
-{extend name="base/common"/}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>Bootstrap 101 Template</title>
 
-{block name="header"}
-	<header class="jumbotron subhead" id="overview">
-		<div class="container">
-			<h2>源自相同起点，演绎不同精彩！</h2>
-			<p class="lead"></p>
-		</div>
-	</header>
-{/block}
+	<!-- Bootstrap -->
+	<link href="/static/static/tp/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/static/tp/css/style.css" rel="stylesheet">
 
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		.main{margin-bottom: 60px;}
+		.indexLabel{padding: 10px 0; margin: 10px 0 0; color: #fff;}
+	</style>
+</head>
 {block name="body"}
-      <div class="span9">
-        <!-- Contents
-        ================================================== -->
-        <section id="contents">
-					{volist name="list" id="data"}
-						<div class="row">
-									<div class="span2">
-											<a href="{:url('Article/detail?id='.$data['id'])}"><img class="img-thumbnail" src="__ROOT__{$data.cover_id|get_cover_path}" /></a>
-									</div>
-									<div class="span7">
-										<h3 class="ellipsis"><a href="{:url('Article/detail?id='.$data['id'])}">{$data.title}</a></h3>
-										<p class="lead">{$data.description}</p>
-										<span><a href="{:url('Article/detail?id='.$data['id'])}">查看全文</a></span>
-										<span class="pull-right">
-											<span class="author">{$data.uid|get_username}</span>&nbsp;&nbsp;
-											<span>发表于 {$data.create_time}</span>
-											<span>阅读({$data.view})</span>&nbsp;&nbsp;
-										</span>
-									</div>
-									<hr/>
-						</div>
-	        {/volist}
-            <div class="twothink pagination pagination-right pagination-large">
-	            {article:page cate="$category['id']" listrow="$category['list_row']" /}
-            </div>
-        </section>
-      </div>
+<body>
+<div class="main">
+	<!--导航部分-->
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container-fluid text-center">
+			<div class="col-xs-3">
+				<p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
+			</div>
+			<div class="col-xs-3">
+				<p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
+			</div>
+			<div class="col-xs-3">
+				<p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
+			</div>
+			<div class="col-xs-3">
+				<p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+			</div>
+		</div>
+	</nav>
+	<!--导航结束-->
+
+	<div class="container-fluid">
+		{volist name="list" id="data"}
+		<div class="row noticeList">
+			<div class="col-xs-2">
+				<img class="noticeImg" href="{:url('Article/detail?id='.$data['id'])}" src="__ROOT__{$data.cover_id|get_cover_path}" />
+			</div>
+			<div class="col-xs-10">
+				<p class="title"><a href="{:url('Article/detail?id='.$data['id'])}">{$data.title}</a></p>
+				<p class="lead">{$data.description}</p>
+				<p class="intro"><a href="{:url('Article/detail?id='.$data['id'])}">查看全文</a> </p>
+				<span class="pull-right">
+					<span class="author">{$data.uid|get_username}</span>&nbsp;&nbsp;
+					<span>发表于 {$data.create_time}</span>
+				<span>阅读({$data.view})</span>&nbsp;&nbsp;
+				</span>
+			</div>
+		</div>
+		{/volist}
+	</div>
+	<div class="twothink pagination pagination-right pagination-large">
+		{article:page cate="$category['id']" listrow="$category['list_row']" /}
+	</div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/static/tp/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/static/static/tp/bootstrap/js/bootstrap.min.js"></script>
+</body>
 {/block}

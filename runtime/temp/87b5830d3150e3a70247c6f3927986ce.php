@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"E:\www\twothink\public/../application/user/view/default/login\register.html";i:1496373782;s:72:"E:\www\twothink\public/../application/user/view/default/base\common.html";i:1511665414;s:69:"E:\www\twothink\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"E:\www\twothink\public/../application/user/view/default/login\register.html";i:1511769378;s:72:"E:\www\twothink\public/../application/user/view/default/base\common.html";i:1511768855;s:69:"E:\www\twothink\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -29,7 +29,7 @@
 	<!-- 导航条
 	================================================== -->
 	<div class="navbar navbar-inverse navbar-fixed-top">
-	    <div class="navbar-inner">
+	    <!--<div class="navbar-inner">-->
 	        <div class="container">
 	            <a class="brand" href="<?php echo url('index/index'); ?>">TwoThink</a>
 	            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -39,11 +39,11 @@
 	            </button>
 	            <div class="nav-collapse collapse">
 	                <ul class="nav"> 
-		                <?php $__NAV__ = \think\Db::name('Channel')->field(true)->where("status=1")->order("sort")->select();if(is_array($__NAV__) || $__NAV__ instanceof \think\Collection || $__NAV__ instanceof \think\Paginator): $i = 0; $__LIST__ = $__NAV__;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$nav): $mod = ($i % 2 );++$i;if($nav['pid'] == '0'): ?>
+
 		                        <li>
 		                            <a href="<?php echo get_nav_url($nav['url']); ?>" target="<?php if($nav['target'] == '1'): ?>_blank<?php else: ?>_self<?php endif; ?>"><?php echo $nav['title']; ?></a>
 		                        </li>
-                        	<?php endif; endforeach; endif; else: echo "" ;endif; ?> 
+
 	                </ul>
 	            </div>
 	            <div class="nav-collapse collapse pull-right">
@@ -63,7 +63,7 @@
 	                            <a href="<?php echo url('User/login'); ?>">登录</a>
 	                        </li>
 	                        <li>
-	                            <a href="<?php echo url('User/register'); ?>" style="padding-left:0;padding-right:0">注册</a>
+	                            <a href="<?php echo url('login/register'); ?>" style="padding-left:0;padding-right:0">注册</a>
 	                        </li>
 	                    </ul>
 	                <?php endif; ?>
@@ -76,13 +76,6 @@
 	
 	<!-- 主体 -->
 	
-<header class="jumbotron subhead" id="overview">
-  <div class="container">
-    <h2>用户注册</h2>
-    <p><span><span class="pull-left"><span>已经有账号? <a href="<?php echo url('User/login'); ?>">点此登录</a> </span> </span></p>
-  </div>
-</header>
-
 	<div id="main-container" class="container">
 	    <div class="row">
 	         

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:71:"E:\www\twothink\public/../application/admin/view/default/menu\edit.html";i:1496373782;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1511677712;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:71:"E:\www\twothink\public/../application/admin/view/default/menu\edit.html";i:1511738141;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1511677712;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -103,7 +103,7 @@
     <div class="main-title">
         <h2><?php echo isset($info['id'])?'编辑':'新增'; ?>后台菜单</h2>
     </div>
-    <form action="<?php echo url(); ?>" method="post" class="form-horizontal">
+    <form action="<?php echo url(); ?>" method="post" class="fix_add">
         <div class="form-item">
             <label class="item-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
             <div class="controls">
