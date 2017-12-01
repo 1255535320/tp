@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"E:\www\twothink\public/../application/home/view/default/index\index.html";i:1511850767;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"E:\www\twothink\public/../application/home/view/default/index\index.html";i:1512083005;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -27,23 +27,26 @@
 <body>
 <div class="main">
 <!--导航部分-->
-<nav class="navbar navbar-default navbar-fixed-bottom">
+    <?php $__CATE__ = model('Category')->getChildrenId(1);$__WHERE__ = model('Document')->listMap($__CATE__);$__LIST__ = \think\Db::name('Document')->where($__WHERE__)->field($field)->order('`level` DESC,`id` DESC')->paginate(10);if($__LIST__){ $__LIST__=$__LIST__->toArray(); $__LIST__=$__LIST__['data'];} if(is_array($__LIST__) || $__LIST__ instanceof \think\Collection || $__LIST__ instanceof \think\Paginator): $i = 0; $__LIST__ = $__LIST__;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$article): $mod = ($i % 2 );++$i;?>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid text-center">
         <div class="col-xs-3">
             <p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
         </div>
         <div class="col-xs-3">
-            <p class="navbar-text"><a href="<?php echo url('Article/detail?id='.$article['id']); ?>" class="navbar-link">服务</a></p>
+            <p class="fuwu navbar-text"><a href="javascript:;" id="uid" class="navbar-link">服务</a></p>
         </div>
         <div class="col-xs-3">
-            <p class="navbar-text"><a href="faxian.html" class="navbar-link">发现</a></p>
+            <p class="navbar-text"><a href="<?php echo url('Article/index?category=shop'); ?>" class="navbar-link">发现</a></p>
         </div>
         <div class="col-xs-3">
             <p class="navbar-text"><a href="my.html" class="navbar-link">我的</a></p>
         </div>
     </div>
 </nav>
-<!--导航结束-->
+    <?php endforeach; endif; else: echo "" ;endif; ?>
+    <!--导航结束-->
 
 <div class="container-fluid">
     <div class="indexImg row">
@@ -78,7 +81,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="<?php echo url('Fix/add?id='.$fix['id']); ?>">
+                    <a href="<?php echo url('Article/lists?category=shop'); ?>">
                     <div class="indexLabel label-success">
                     <span class="glyphicon glyphicon-briefcase"></span><br/>
                     商家活动
@@ -86,7 +89,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="zushou.html">
+                    <a href="<?php echo url('Article/index?category=rent'); ?>">
                     <div class="indexLabel label-primary">
                     <span class="glyphicon glyphicon-usd"></span><br/>
                     小区租售
@@ -94,7 +97,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="notice.html">
+                    <a href="<?php echo url('Article/lists?category=plot'); ?>">
                     <div class="indexLabel label-default">
                         <span class="glyphicon glyphicon-apple"></span><br/>
                         小区活动
@@ -110,5 +113,18 @@
 <script src="/static/static/tp/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/static/tp/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $('.fuwu').click(function () {
+        //验证是否登录
+        $.getJSON('/home/fuwu/index',function(data){
+            if(data==1){
+                window.location.href='/user/login/index';
+            } else{
+              window.location.href='/home/fuwu/lists';
+//                window.location.href='../application/home/view/default/fuwu/index'
+            }
+        })
+    })
+</script>
 </body>
 </html>

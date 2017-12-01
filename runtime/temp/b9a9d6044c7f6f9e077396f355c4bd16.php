@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"E:\www\twothink\public/../application/home/view/default/article\lists.html";i:1511838450;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"E:\www\twothink\public/../application/home/view/default/article\lists.html";i:1512043199;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -57,16 +57,17 @@
 				<p class="intro"><a href="<?php echo url('Article/detail?id='.$data['id']); ?>">查看全文</a> </p>
 				<span class="pull-right">
 					<span class="author"><?php echo get_username($data['uid']); ?></span>&nbsp;&nbsp;
-					<span>发表于 <?php echo $data['create_time']; ?></span>
+					<span>发表于 <?php echo date('Y-m-d H:i',$data['create_time']); ?></span>
 				<span>阅读(<?php echo $data['view']; ?>)</span>&nbsp;&nbsp;
 				</span>
 			</div>
 		</div>
 		<?php endforeach; endif; else: echo "" ;endif; ?>
 	</div>
-	<div class="twothink pagination pagination-right pagination-large">
-		<?php $__PAGE__ = \think\Db::name('Document')->paginate($category['list_row'],get_list_count($category['id']));echo $__PAGE__->render(); ?>
-	</div>
+
+</div>
+<div class="twothink pagination pagination-right pagination-large">
+	<?php $__PAGE__ = \think\Db::name('Document')->paginate($category['list_row'],get_list_count($category['id']));echo $__PAGE__->render(); ?>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/static/tp/jquery-1.11.2.min.js"></script>

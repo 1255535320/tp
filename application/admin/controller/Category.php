@@ -33,7 +33,6 @@ class Category extends Admin{
         $this->assign('tree', $tree);
         return $this->fetch('tree');
     }
-
     /* 编辑分类 */
     public function edit($id = null, $pid = 0){
         $Category = model('Category');
@@ -76,7 +75,9 @@ class Category extends Admin{
         		return $this->error($validate->getError());
         	}
             if(false !== $Category->allowField(true)->save($data)){
-                $this->success('新增成功！', url('index'));
+        	    //清空缓存
+                cache('sys_category_list',null);
+        	    $this->success('新增成功！', url('index'));
             } else {
                 $error = $Category->getError();
                 $this->error(empty($error) ? '未知错误！' : $error);

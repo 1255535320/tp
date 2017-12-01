@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:71:"E:\www\twothink\public/../application/admin/view/default/fix\index.html";i:1511858842;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1511677712;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:71:"E:\www\twothink\public/../application/admin/view/default/fix\index.html";i:1511920304;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1511677712;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -140,7 +140,6 @@
                 </td>
                 <td><?php echo $fix['name']; ?></td>
                 <td><?php echo $fix['tel']; ?></td>
-                <!--<td><?php echo $fix['create_time']; ?></td>-->
                 <td><?php echo date("Y-m-d H:i",$fix['create_time']); ?></td>
                 <td>
                     <a title="编辑" href="<?php echo url('edit?id='.$fix['id']); ?>">编辑</a>
@@ -155,7 +154,7 @@
     </form>
     <!-- 分页 -->
     <div class="page">
-
+        <?php echo $list->render(); ?>
     </div>
 </div>
 

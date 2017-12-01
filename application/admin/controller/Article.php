@@ -306,7 +306,7 @@ class Article extends Admin {
         if(!is_null($group_id)){
         	$map['group_id']	=	$group_id;
         }
-        $listRows = config('list_rows') > 0 ? config('list_rows') : 1;
+        $listRows = config('list_rows') > 0 ? config('list_rows') : 3;
         //检测field id是否存在
 		if(in_array('id',$field) && $dq_model['extend'] != 0){
 			foreach ($field as $key=>$value){

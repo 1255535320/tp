@@ -37,7 +37,9 @@ class Article extends Home {
 		$this->assign('category', $category);
 		$this->assign('list', $list);
 		// echo $category['template_lists'];
-		return $this->fetch($category['template_lists']);
+        //var_dump($list);exit;
+
+        return $this->fetch($category['template_lists']);
 	}
 
 	/* 文档模型详情页 */
@@ -70,11 +72,15 @@ class Article extends Home {
 		/* 更新浏览数 */
 		$map = array('id' => $id);
 		$Document->where($map)->setInc('view');
-		/* 模板赋值并渲染模板 */
+//        var_dump($info);exit;
+
+        /* 模板赋值并渲染模板 */
 		$this->assign('category', $category);
 		$this->assign('info', $info);
 		$this->assign('page', $p); //页码
-		return $this->fetch($tmpl);
+
+        return $this->fetch($tmpl);
+
 	}
 
 	/* 文档分类检测 */
@@ -100,5 +106,6 @@ class Article extends Home {
 			$this->error('分类不存在或被禁用！');
 		}
 	}
+
 
 }

@@ -70,7 +70,7 @@ class Fix extends Admin
 //        var_dump($id);exit;
         if($title)
             $map['title'] = array('like',"%{$title}%");
-        $list = Db::name('Fix')->where($map)->field(true)->order('id asc')->select();
+        $list = Db::name('Fix')->where($map)->field(true)->order('id asc')->paginate(6);
         if ($list){
             foreach ($list as &$key){
                 if ($key['id']){

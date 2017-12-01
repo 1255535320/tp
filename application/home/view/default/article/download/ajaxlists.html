@@ -1,0 +1,24 @@
+{block name="body"}
+    {notempty name="list"}
+        {volist name="list" id="data"}
+<div class="row noticeList">
+    <div class="col-xs-2">
+        <img class="noticeImg" href="{:url('Article/detail?id='.$data['id'])}" src="__ROOT__{$data.cover_id|get_cover_path}" />
+    </div>
+    <div class="col-xs-10">
+        <p class="title"><a href="{:url('Article/detail?id='.$data['id'])}">{$data.title}</a></p>
+        <p class="lead">{$data.description}</p>
+        <p class="intro"><a href="{:url('Article/detail?id='.$data['id'])}">查看全文</a> </p>
+        <span class="pull-right">
+					<span class="author">{$data.uid|get_username}</span>&nbsp;&nbsp;
+					<span>发表于 {$data.create_time|date='Y-m-d H:i',###}</span>
+				<span>阅读({$data.view})</span>&nbsp;&nbsp;
+				</span>
+    </div>
+</div>
+{/volist}
+    <button class="btn btn-default btn-block get_more" onclick="getLists({$Think.get.page+1})">获取更多...</button>
+{else/}
+    <p class="text-center">没有更多了....</p>
+    {/notempty}
+{/block}
