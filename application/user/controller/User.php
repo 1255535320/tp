@@ -26,7 +26,7 @@ class User extends Base {
             //获取参数
             $uid        =   is_login();
             $data = input('param.'); 
-            $password   =  $data['old'];;
+            $password =  $data['old'];;
             $repassword = $data['repassword'];
             $data['password'] = $data['password'];
             empty($password) && $this->error('请输入原密码');

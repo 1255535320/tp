@@ -9,8 +9,13 @@
 
 namespace app\user\controller;
 use app\common\controller\UcApi;
+use app\common\model\UcenterMember;
+use app\home\controller\Wechat;
+use app\user\model\Member;
 use think\Controller;
 use think\Cookie;
+use think\Db;
+use think\Session;
 
 /**
  * 用户登入
@@ -25,6 +30,20 @@ class Login extends Controller {
     }
     /* 登录页面 */
     public function index($username = '', $password = '', $verify = '',$type = 1){
+       //检查微信用户是否绑定账号,绑定则自动登陆
+            //获取用户id
+        $uid=is_login();
+        //获取openid
+        $openid=Session::get('openid');
+        if ($openid){
+            $ucm = new UcenterMember();
+            $ucm->autoLogin($uid);
+            $Member=model('Member');
+            $Member->login;($uid);
+            //跳转到登陆前页面
+           $this->redirect( Session::get('return_url'));
+        }
+        //没绑定就让用户登录
         if($this->request->isPost()){ //登录验证
             /* 检测验证码 */
             if(!captcha_check($verify)){
@@ -43,6 +62,9 @@ class Login extends Controller {
                     if(!$cookie_url = Cookie::get('__forward__')){
                         $cookie_url = url('Home/Index/index');
                     }
+                    //登陆成功绑定账号
+                    $Member->openid=$openid;
+                    $Member->save();
                     $this->success('登录成功！',$cookie_url);
                 } else {
                     $this->error($Member->getError());
@@ -94,7 +116,11 @@ class Login extends Controller {
 	}
 	/* 退出登录 */
 	public function logout(){
-		if(is_login()){
+	    $uid=is_login();
+		if($uid){
+		    $Member=model('Member');
+		    $Member->openid='';
+		    $Member->save();
 			model('Member')->logout();
 			$this->success('退出成功！', url('User/login'));
 		} else {

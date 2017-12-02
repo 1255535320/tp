@@ -42,6 +42,7 @@ class Admin extends Controller {
     	}
         // 获取当前用户ID
         if(defined('UID')) return ;
+
         define('UID',is_login());
         if( !UID ){// 还没登录 跳转到登录页面
             $this->redirect('Publics/login');
