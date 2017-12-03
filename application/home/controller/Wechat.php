@@ -26,7 +26,7 @@ class Wechat extends Controller
             $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appID}&redirect_uri={$callback_url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
             $this->redirect($url);
         }else{
-            $openid=Session::get('openid');
+            return $openid=Session::get('openid');
         }
 //        var_dump($openid);
     }

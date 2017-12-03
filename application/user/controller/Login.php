@@ -30,11 +30,11 @@ class Login extends Controller {
     }
     /* 登录页面 */
     public function index($username = '', $password = '', $verify = '',$type = 1){
-       //检查微信用户是否绑定账号,绑定则自动登陆
-            //获取用户id
-        $uid=is_login();
-        //获取openid
-        $openid=Session::get('openid');
+       //获取openid
+        $Wechat =new Wechat();
+        $openid= $Wechat->info();
+        //查询用户是否绑定
+
         if ($openid){
             $ucm = new UcenterMember();
             $ucm->autoLogin($uid);
