@@ -30,26 +30,46 @@ class Login extends Controller {
     }
     /* 登录页面 */
     public function index($username = '', $password = '', $verify = '',$type = 1){
+        //微信访问
+        $is_wechat =  strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false;
+       if ($is_wechat){
+           //保存当前地址
+           Session::set('return_url',url('user/login'));
        //获取openid
-        $Wechat =new Wechat();
-        $openid= $Wechat->info();
-        //查询用户是否绑定
+           $Wechat =new Wechat();
+           $openid= $Wechat->info();
+           if (!Session::has('openid')){
+               $openid= $Wechat->info();
+           }else{
+               $openid=Session::get('openid');
+           }
 
-        if ($openid){
-            $ucm = new UcenterMember();
-            $ucm->autoLogin($uid);
-            $Member=model('Member');
-            $Member->login;($uid);
-            //跳转到登陆前页面
-           $this->redirect( Session::get('return_url'));
-        }
+           //根据openid查询用户
+//           var_dump($openid);exit;
+           $Member=model('Member');
+           $user=$Member->where(["openid"=>$openid])->find();
+           //自动登陆的方法
+           if ($user){
+               $ucm = new UcenterMember();
+               $ucm->autoLogin($user->uid);
+               $Member->login($user->uid);
+               //跳转到登陆前页面
+               if (!$cookie_url=Cookie::get('__forward__')){
+                   $cookie_url = url('home/index/');
+               }
+//               else{
+//                   $this->redirect($cookie_url);
+//               }
+           }
+       }
         //没绑定就让用户登录
         if($this->request->isPost()){ //登录验证
+
+
             /* 检测验证码 */
             if(!captcha_check($verify)){
                 $this->error('验证码输入错误！');
             }
-
             /* 调用UC登录接口登录 */
             $user = new UcApi;
             $uid = $user->login($username, $password, $type);
@@ -60,17 +80,20 @@ class Login extends Controller {
                 if($Member->login($uid)){ //登录用户
                     //TODO:跳转到登录前页面
                     if(!$cookie_url = Cookie::get('__forward__')){
-                        $cookie_url = url('Home/Index/index');
+                        $cookie_url = url('/Home/Index');
                     }
                     //登陆成功绑定账号
-                    $Member->openid=$openid;
-                    $Member->save();
+                    $openid=Session::get('openid');
+                    if ($is_wechat) $Member->update(['openid'=>$openid],["uid"=>$uid]);
+//                    var_dump($uid);
+//                    var_dump($openid);
+//                    exit;
                     $this->success('登录成功！',$cookie_url);
                 } else {
                     $this->error($Member->getError());
                 }
 
-            } else { //登录失败
+            }else { //登录失败
                 switch($uid) {
                     case -1: $error = '用户不存在或被禁用！'; break; //系统级别禁用
                     case -2: $error = '密码错误！'; break;
@@ -98,11 +121,11 @@ class Login extends Controller {
 			/* 检测密码 */
 			if($password != $repassword){
 				$this->error('密码和重复密码不一致！');
-			}			
+			}
 
 			/* 调用注册接口注册用户 */
             $User = new UcApi;
-			$uid = $User->register($username, $password, $email); 
+			$uid = $User->register($username, $password, $email);
 			if(0 < $uid){ //注册成功
 				//TODO: 发送验证邮件
 				$this->success('注册成功！',url('login/index'));
@@ -118,9 +141,6 @@ class Login extends Controller {
 	public function logout(){
 	    $uid=is_login();
 		if($uid){
-		    $Member=model('Member');
-		    $Member->openid='';
-		    $Member->save();
 			model('Member')->logout();
 			$this->success('退出成功！', url('User/login'));
 		} else {

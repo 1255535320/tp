@@ -16,7 +16,7 @@ class Wechat extends Controller
 {   //获取用户id
     public function info(){
         //保存当前地址到session
-        Session::set('return_url',url('home/wechat/info'));
+        Session::set('return_url',url('user/login'));
         //如果session中没有openid
         if (!Session::has('openid')){
             $appID='wxdc8dbf0858ee97fe';
@@ -46,7 +46,7 @@ class Wechat extends Controller
         //保存用户id
         Session::set('openid',$json->openid);
         //判断session中是否保存有地址
-        if (Session::has(Session::get('return_url'))){
+        if (Session::has('return_url')){
             $this->redirect(Session::get('return_url'));
         }
 
